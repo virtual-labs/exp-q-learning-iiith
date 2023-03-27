@@ -34,13 +34,11 @@
 						<div class="v-collapsible is-size-5">Instructions</div>
 						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
 							<ul style="list-style: disc;">
-								<li><b>Start</b>- Starts the simulation after the inputs are properly selected. Default
-									speed is 1x.</li>
-								<li>Select the speed through slider given below</li>
 								<li><b>Reset</b> - Resets the simulation</li>
-								<li> Change the grid-size using dropdown given below </li>
-								<li>Single click on any cell on left hand matrix will turn the cell into obstacle
-								</li>
+								<li><b>Next Value</b> - Updates the Q value of the state action pair</li>
+								<li><b>Next Iteration</b> - Updates the Q values until the episode converges at a
+									terminal state or a fixed number of steps are taken</li>
+								<li> Change the grid-size/reward/discount factor using dropdown given below </li>
 								<li> Double click will turn cell from green(reward: 1) to red(reward: -1) to normal
 									state </li>
 								<li> The animation on left grid represents the cell that are being to used to calculate
@@ -71,38 +69,45 @@
 		<div class="grid-title">
 			<h2 class="present-iteration-display" id="present-iteration-display">Previous Iteration</h2>
 			<h2 class="next-iteration-display" id="next-iteration-display">Present Iteration</h2>
-			<h2 class="observation-display" id="observation-display">Observations</h2>
+			<h2 class="observation-display" id="observation-display">Controls</h2>
 		</div>
 		<div class="parent-matrix">
 			<div class="matrix" id="matrix">
 
 			</div>
-			<div class="parameters-display">
+			<div class="parameters observe">
 				<div class="iterations observe" id="iterations">
 
 					<label class="it">Iterations : &nbsp; </label>
 					<div class="iteration-number" id="iteration-number">
-						1
+						0
+					</div>
+				</div>
+				<div class="iterations observe" id="steps">
+
+					<label for="stepsv">Steps : &nbsp;</label>
+					<div class="iteration-number" id="stepsv">
+						0
 					</div>
 				</div>
 				<div class="discount observe">
 					<label for="discount">Discount Factor : &nbsp;</label>
-					<p>0.9</p>
+					<input type="number" id="discount" name="discount" min="0.1" max="1" step="0.1" value="0.9">
 					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
 				</div>
 				<div class="epsilon observe">
 					<label for="epsilon">Epsilon : &nbsp;</label>
-					<p>0.3</p>
+					<input type="number" id="epsilon" name="epsilon" min="0" max="1" step="0.1" value="0.3">
 					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
 				</div>
 				<div class="alpha observe">
 					<label for="alpha">Learning Rate : &nbsp;</label>
-					<p>0.1</p>
+					<input type="number" id="alpha" name="alpha" min="0.1" max="1" step="0.1" value="0.1">
 					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
 				</div>
 				<div class="reward observe">
 					<label for="reward">Reward : &nbsp;</label>
-					<p>-0.1</p>
+					<input type="number" id="reward" name="reward" min="-1" max="-0.1" step="0.1" value="-0.1">
 					<!-- <input type="number" id="reward" name="reward" min="-1" max="1" step="0.1" value="0.0"> -->
 				</div>
 				<div class="grid observe">
@@ -115,14 +120,14 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="control-buttons" id="button-container">
+		<div class="control-buttons" id="button-container">
 			<div class="button-container" id="button-container">
 
-				<button class="button" id="next-value">next value</button>
-				<button class="button" id="next-iteration">next Iteration</button>
+				<button class="button-control" id="next-value">next value</button>
+				<button class="button-control" id="next-iteration">next Iteration</button>
 
 			</div>
-		</div> -->
+		</div>
 		<div class="modal" id="modal1">
 			<div class="modal-dialog">
 				<header class="modal-header">
@@ -162,20 +167,20 @@
 			</div>
 		</div>
 
-		<div style="margin-right: 10%; text-align:end">
+		<!-- <div style="margin-right: 10%; text-align:end">
 			<div>
 				<p id="ranger">
 					Min.Speed <input type="range" min="100" max="2500" id="interval" class="slider_input" value="1500"
 						onclick="change_interval();" onchange="change_interval();"> Max.Speed
 				</p>
 			</div>
-		</div>
+		</div> -->
 
 		<div class="play-pause">
 
 			<input type="button" value="Reset" class="button-input" id="reset">
-			<input type="button" value="Start" class="button-input" id="start">
-			<input type="button" value="Pause" class="button-input" id="pause">
+			<input type="button" value="Start" class="button-input" id="start" style="display: none;">
+			<input type="button" value="Pause" class="button-input" id="pause" style="display: none;">
 
 
 		</div>
