@@ -1,7 +1,7 @@
 //Your JavaScript goes in here
 // Hello World 
 // document.write("Hello World");
-import { makeGrid, addFinalStates, valueIteration, completedOrNot, isTerminalState, isObstacle, addObstacles, getNeighbours, calculateNewValue, nextCell, DIRECTIONS, getDirection } from "./required-functions.js";
+import { makeGrid, addFinalStates, completedOrNot, isTerminalState, isObstacle, addObstacles, getNeighbours, calculateNewValue, nextCell, DIRECTIONS, getDirection } from "./required-functions.js";
 // window.simulationStatus = simulationStatus;
 window.initialize = initialize;
 window.change_interval = change_interval;
@@ -9,13 +9,14 @@ window.change_interval = change_interval;
 var grid, newGrid;
 var iterations = 1;
 var nextCellToCalculate = [2, 0];
+var curSteps = 0;
 var reward = -0.1, gamma = 0.9, epsilon = 0.3, alpha = 0.1;
 var clicks = 0, timer;
 
 
 var time;
 
-function createEquation(current_q_sa, max_next_q_sa, action) {
+function createEquation(current_q_sa, max_next_q_sa, action, display = 1) {
 	let action_char = 'L';
 	if (action == 1)
 		action_char = 'U'
@@ -27,7 +28,10 @@ function createEquation(current_q_sa, max_next_q_sa, action) {
 	let equation_str = showNumber(current_q_sa) + " + " + showNumber(alpha) + " * ( " + showNumber(reward) + " + " + showNumber(gamma) + " * " + showNumber(max_next_q_sa) + " - ( " + showNumber(current_q_sa) + " ))";
 	var equation = "Q" + "[(" + nextCellToCalculate[0] + "," + nextCellToCalculate[1] + ")," + action_char + "] &xlarr; " + equation_str + " = " + showNumber(result_val);
 	// console.log(equation);
-	document.getElementById("value-calculation-paragraph").innerHTML = equation;
+	if (display == 1)
+		document.getElementById("value-calculation-paragraph").innerHTML = equation;
+	else
+		document.getElementById("value-calculation-paragraph").innerHTML = "";
 	return result_val;
 
 }
@@ -45,7 +49,8 @@ function converged() {
 
 function clickedOnNextValue(e) {
 	var cell = nextCellToCalculate;
-	// console.log("clicked on next value", nextCellToCalculate);
+	// console.log("clicked on next value", nextCellToCalculate);\
+	curSteps += 1;
 	let x = Math.random();
 	let current_q_sa;
 	let next_action, exploring = 0;
@@ -53,12 +58,10 @@ function clickedOnNextValue(e) {
 		next_action = Math.floor((Math.random() * 4)) // 0L, 1U, 2R, 3D 
 		current_q_sa = newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]][next_action]
 		exploring = 1;
-		console.log("explore", next_action)
 	}
 	else {
 		next_action = newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]].indexOf(Math.max(...newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]]))
 		current_q_sa = newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]][next_action]
-		console.log("exploit", next_action)
 	}
 
 	const max_next_q_sa = calculateNewValue(nextCellToCalculate[0], nextCellToCalculate[1], next_action, reward, gamma, newGrid, 0);
@@ -69,7 +72,8 @@ function clickedOnNextValue(e) {
 	newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]][next_action] = value;
 	nextCellToCalculate = nextCell(nextCellToCalculate[0], nextCellToCalculate[1], next_action, newGrid);
 
-	if (isTerminalState(nextCellToCalculate[0], nextCellToCalculate[1], newGrid)) {
+	if (isTerminalState(nextCellToCalculate[0], nextCellToCalculate[1], newGrid) || curSteps > grid.size[0] * grid.size[0]) {
+		curSteps = 0;
 		iterations++;
 		console.log(iterations)
 		document.getElementById("iteration-number").innerHTML = iterations;
@@ -83,6 +87,8 @@ function clickedOnNextValue(e) {
 
 		nextCellToCalculate = [2, 0];
 	}
+
+	document.getElementById("stepsv").innerHTML = curSteps;
 	constructTable(grid);
 
 	if (exploring) {
@@ -107,19 +113,51 @@ function clickedOnNextValue(e) {
 }
 
 function clickedOnNextIteration(e) {
-	// console.log("clicked on next iteration");
-	grid = valueIteration(grid, reward, gamma);
-	iterations++;
-	// console.log(iterations);
-	document.getElementById("iteration-number").innerHTML = iterations;
-	newGrid = structuredClone(grid);
-	nextCellToCalculate = [0, 0];
-	// console.log(grid);
-	constructTable(grid);
-	if (grid.completed === true) {
-		// alert("Value Iteration has converged");
-		converged();
+	var cell = nextCellToCalculate;
+	// console.log("clicked on next value", nextCellToCalculate);
+	let steps = 0;
+	while (1) {
+		steps += 1;
+		let x = Math.random();
+		let current_q_sa;
+		let next_action, exploring = 0;
+		if (x < epsilon) {
+			next_action = Math.floor((Math.random() * 4)) // 0L, 1U, 2R, 3D 
+			current_q_sa = newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]][next_action]
+			exploring = 1;
+		}
+		else {
+			next_action = newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]].indexOf(Math.max(...newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]]))
+			current_q_sa = newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]][next_action]
+		}
+
+		const max_next_q_sa = calculateNewValue(nextCellToCalculate[0], nextCellToCalculate[1], next_action, reward, gamma, newGrid, 0);
+		const value = createEquation(current_q_sa, max_next_q_sa, next_action, 0);
+		// console.log(value);
+
+		// console.log(grid);
+		newGrid[nextCellToCalculate[0]][nextCellToCalculate[1]][next_action] = value;
+		nextCellToCalculate = nextCell(nextCellToCalculate[0], nextCellToCalculate[1], next_action, newGrid);
+
+		if (isTerminalState(nextCellToCalculate[0], nextCellToCalculate[1], newGrid) || steps > grid.size[0] * grid.size[0]) {
+			iterations++;
+			curSteps = 0;
+			console.log(iterations)
+			document.getElementById("iteration-number").innerHTML = iterations;
+			// console.log(completedOrNot(grid, newGrid));
+			if (completedOrNot(grid, newGrid)) {
+				// alert("Value Iteration has converged");
+				converged();
+			}
+			grid = structuredClone(newGrid);
+			// constructTable(grid);
+
+			nextCellToCalculate = [2, 0];
+			break;
+		}
 	}
+
+	constructTable(grid);
 
 }
 function showNumber(x) {
@@ -401,7 +439,7 @@ if (nextIteration)
 	nextIteration.addEventListener("click", clickedOnNextIteration);
 var gridSizeSelect;
 var gridSize, discountFactor;
-var rewardSelect, discountFactorSelect;
+var rewardSelect, discountFactorSelect, epsilonSelect, alphaSelect;
 
 
 
@@ -498,7 +536,9 @@ function initialize() {
 	if (time != 0) {
 		clearInterval(time);
 	}
-	iterations = 1;
+	iterations = 0;
+	document.getElementById("iteration-number").innerHTML = 0;
+	document.getElementById("stepsv").innerHTML = 0;
 	document.getElementById("converged-iterations").innerHTML = 0;
 	gridSizeSelect = document.getElementById("grid-sizes");
 	var value = gridSizeSelect.value;
@@ -507,6 +547,14 @@ function initialize() {
 	rewardSelect = document.getElementById("reward");
 	reward = rewardSelect.value;
 	reward = parseFloat(reward);
+
+	epsilonSelect = document.getElementById("epsilon");
+	epsilon = epsilonSelect.value;
+	epsilon = parseFloat(epsilon);
+
+	alphaSelect = document.getElementById("alpha");
+	alpha = alphaSelect.value;
+	alpha = parseFloat(alpha);
 
 	discountFactorSelect = document.getElementById("discount");
 	var discountFactor = discountFactorSelect.value;
@@ -539,6 +587,20 @@ gridSizeSelect.addEventListener("change", function (e) {
 
 rewardSelect.addEventListener("change", function (e) {
 	reward = parseFloat(e.target.value);
+	// console.log(reward);
+	// constructTable(gridSize);
+	initialize();
+});
+
+epsilonSelect.addEventListener("change", function (e) {
+	epsilon = parseFloat(e.target.value);
+	// console.log(reward);
+	// constructTable(gridSize);
+	initialize();
+});
+
+alphaSelect.addEventListener("change", function (e) {
+	alpha = parseFloat(e.target.value);
 	// console.log(reward);
 	// constructTable(gridSize);
 	initialize();
