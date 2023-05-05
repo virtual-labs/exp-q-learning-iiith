@@ -40,8 +40,9 @@ Q(s,a) = Q(s,a) + alpha * [r + gamma * max(Q(s',a')) - Q(s,a)]
 Where:
 
 max(Q(s',a')) is the maximum Q-value for the next state s' and all possible actions a'
-
 ```
+
+**On-policy methods update the Q-values based on the actions taken by the current policy, while off-policy methods use a different policy to update the Q-values. Thus Q-Learning is an off policy method as it updates the Q values based on max value instead of current policy**
 
 **5. Repeat steps 2-4**: Continue selecting actions, observing rewards, and updating Q-values until the agent reaches a terminal state or a maximum number of iterations.
 
