@@ -144,6 +144,7 @@ function clickedOnNextIteration(e) {
 			curSteps = 0;
 			console.log(iterations)
 			document.getElementById("iteration-number").innerHTML = iterations;
+			document.getElementById("stepsv").innerHTML = curSteps;
 			// console.log(completedOrNot(grid, newGrid));
 			if (completedOrNot(grid, newGrid)) {
 				// alert("Value Iteration has converged");
@@ -537,6 +538,7 @@ function initialize() {
 		clearInterval(time);
 	}
 	iterations = 0;
+	curSteps=0
 	document.getElementById("iteration-number").innerHTML = 0;
 	document.getElementById("stepsv").innerHTML = 0;
 	document.getElementById("converged-iterations").innerHTML = 0;
