@@ -27,6 +27,10 @@ table {
   display: flex;
 }
 
+.cell {
+  font-size: medium;
+}
+
 .matrix {
   width: 80% !important;
 }
