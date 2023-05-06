@@ -2,35 +2,67 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "What is the role of the learning rate parameter in Q-learning?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "It determines the probability of taking a particular action in a given state",
+        "b": "It determines the value of the optimal policy for a given state",
+        "c": "It determines the penalty for taking a suboptimal action in a given state",
+        "d": "It determines the rate at which the Q-values are updated during learning"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "d": "The learning rate parameter in Q-learning determines the rate at which the Q-values are updated during learning and controls the balance between new information and old information."
       },
-      "correctAnswer": "a",
+      "correctAnswer": "d",
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "How does increasing the grid size in a Q-learning problem affect the number of steps per iteration?",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "Increasing the grid size has no effect on the number of steps",
+        "b": "Increasing the grid size increases the number of steps",
+        "c": "Increasing the grid size decreases the number of steps"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "b": "Increasing the grid size increases the number of steps per iteration. As the grid size increases, the state space becomes larger and reaching a terminal state takes more time. That's why we have kept a threshold of grid-size^2 on the number of steps per iteration"
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "How does increasing the grid size in a Q-learning problem affect the number of iterations required for convergence?",
+      "answers": {
+        "a": "Increasing the grid size has no effect on the number of iterations required for convergence",
+        "b": "Increasing the grid size increases the number of iterations required for convergence",
+        "c": "Increasing the grid size decreases the number of iterations required for convergence"
+      },
+      "explanations": {
+        "b": "Increasing the grid size increases the number of iterations required for convergence. As the grid size increases, the state space becomes larger and more complex, which can make it more difficult for the Q-learning algorithm to converge."
+      },
+      "correctAnswer": "b",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Which of the following is an advantage of Q-learning over other reinforcement learning methods?",
+      "answers": {
+        "a": "It is computationally efficient",
+        "b": "It can learn without requiring a model of the environment",
+        "c": "It can handle continuous state and action spaces"
+      },
+      "explanations": {
+        "b": "Q-Learning is a model free algorithm"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "How does the choice of reward function affect the behavior of an agent?",
+      "answers": {
+        "a": "It determines the agent's ability to explore the state space",
+        "b": "It determines the agent's computational efficiency",
+        "c": "It determines the agent's preference for certain actions over others"
+      },
+      "explanations": {
+        "b": "Based on rewards some actions would be preferred over others"
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
