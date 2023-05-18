@@ -238,11 +238,11 @@ table td {
 	margin-right: 1.5%;
 } */
 
-.button-container {
+/* .button-container {
   display: flex;
   justify-content: space-around;
   width: 100%;
-}
+} */
 
 .button {
   width: 20%;
@@ -262,23 +262,73 @@ table td {
   transition: background-color 0.2s ease-in-out;
 }
 
-.play-pause,
+/* .play-pause, */
 .button-container {
   margin: 3rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   align-items: center;
   justify-content: center;
   gap: 2%;
   display: flex;
 }
 
-.button-container {
+
+.play-pause {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.button-layout {
+  text-align: right;
+}
+
+.button-layout-practice {
+  text-align: center;
+  margin-bottom: 5%;
+}
+
+.slider-layout {
+  text-align: left;
+}
+
+.play-pause>div {
+  flex: 1;
+}
+
+.button-input,
+.slider_input {
+  margin-right: 5px;
+}
+
+@media (max-width: 700px) {
+  .play-pause {
+    flex-direction: column;
+  }
+
+  .play-pause>div {
+    width: 100%;
+  }
+
+  .button-layout {
+    text-align: center;
+  }
+
+  .slider-layout {
+    text-align: center;
+    margin-top: 3%;
+  }
+}
+
+/* .button-container {
   margin: 0;
   margin-top: 1rem;
   align-items: center;
   justify-content: space-around;
   display: flex;
-}
+} */
 
 .button-input,
 .button-control {

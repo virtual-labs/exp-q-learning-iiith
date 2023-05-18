@@ -16,7 +16,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
 
 	<title>
-		Value Iteration
+		Q Learning
 	</title>
 </head>
 
@@ -179,24 +179,34 @@
 			</div>
 		</div>
 
-		<div style="margin-right: 10%; margin-top: 2%; text-align:end">
+		<!-- <div style="margin-right: 10%; margin-top: 2%; text-align:end">
 			<div>
 				<p id="ranger">
 					Min.Speed <input type="range" min="100" max="2500" id="interval" class="slider_input" value="1500"
 						onclick="change_interval();" onchange="change_interval();"> Max.Speed
 				</p>
 			</div>
+		</div> -->
+
+
+
+
+		<div class="play-pause" style="padding-bottom: 5%; margin-top: 2%;">
+			<div class="button-layout">
+				<input type="button" value="Reset" class="button-input" id="reset">
+				<input type="button" value="Start" class="button-input" id="start">
+				<input type="button" value="Pause" class="button-input" id="pause">
+			</div>
+			<div style="margin-left: 5%;" class="slider-layout">
+				<p id="ranger">
+					Min.Speed
+					<input type="range" min="100" max="2500" id="interval" class="slider_input" value="1500"
+						onclick="change_interval();" onchange="change_interval();" />
+					Max.Speed
+				</p>
+			</div>
 		</div>
 
-  
-		<div class="play-pause" style="padding-bottom: 5%;">
-
-			<input type="button" value="Reset" class="button-input" id="reset">
-			<input type="button" value="Start" class="button-input" id="start">
-			<input type="button" value="Pause" class="button-input" id="pause">
-
-
-		</div>
 
 	</div>
 	<!-- Add JS at the bottom of HTML file -->
