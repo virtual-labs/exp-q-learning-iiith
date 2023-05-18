@@ -16,7 +16,7 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
 
 	<title>
-		Value Iteration
+		Q Learning
 	</title>
 </head>
 
@@ -25,7 +25,7 @@
 	<div class="main" id="main">
 
 		<div class="title" id="title">
-			<h1>Q Learning Demo</h1>
+			<h1>Q Learning Practice</h1>
 		</div>
 		<div class="instructions">
 			<div class="columns is-centered">
@@ -120,14 +120,14 @@
 				</div>
 			</div>
 		</div>
-		<div class="control-buttons" id="button-container">
+		<!-- <div class="control-buttons" id="button-container">
 			<div class="button-container" id="button-container">
 
 				<button class="button-control" id="next-value">next value</button>
 				<button class="button-control" id="next-iteration">next Iteration</button>
 
 			</div>
-		</div>
+		</div> -->
 		<div class="modal" id="modal1">
 			<div class="modal-dialog">
 				<header class="modal-header">
@@ -176,15 +176,15 @@
 			</div>
 		</div> -->
 
-		<div class="play-pause">
-
-			<input type="button" value="Reset" class="button-input" id="reset">
-			<input type="button" value="Start" class="button-input" id="start" style="display: none;">
-			<input type="button" value="Pause" class="button-input" id="pause" style="display: none;">
-
-
+		<div class="play-pause" style="margin-top: 2%; margin-bottom: 2%;">
+			<div class="button-layout-practice">
+				<input type="button" value="Start" class="button-input" id="start" style="display: none;">
+				<input type="button" value="Pause" class="button-input" id="pause" style="display: none;">
+				<input type="button" value="Next Value" class="button-input" id="next-value">
+				<input type="button" value="Next Iteration" class="button-input" id="next-iteration">
+				<input type="button" value="Reset" class="button-input" id="reset">
+			</div>
 		</div>
-
 	</div>
 	<!-- Add JS at the bottom of HTML file -->
 	<script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>

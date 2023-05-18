@@ -84,8 +84,8 @@ function clickedOnNextValue(e) {
 		}
 		grid = structuredClone(newGrid);
 		constructTable(grid);
-
-		nextCellToCalculate = [2, 0];
+		var gridSize = grid.size[0];
+		nextCellToCalculate = [gridSize - 1, 0];
 	}
 
 	document.getElementById("stepsv").innerHTML = curSteps;
@@ -153,7 +153,8 @@ function clickedOnNextIteration(e) {
 			grid = structuredClone(newGrid);
 			// constructTable(grid);
 
-			nextCellToCalculate = [2, 0];
+			var gridSize = grid.size[0];
+			nextCellToCalculate = [gridSize - 1, 0];
 			break;
 		}
 	}
@@ -236,7 +237,7 @@ function singleClickedOnCell(e) {
 	}
 	// console.log(x, y);
 
-	addObstacles(x, y, -2, grid);
+	// addObstacles(x, y, -2, grid);
 	grid[x][y][0] = -2;
 	grid[x][y][1] = -2;
 	grid[x][y][2] = -2;
@@ -358,6 +359,17 @@ function constructTable(grid) {
 			else if (allEqual(grid[i][j]) && (grid[i][j][0] === -1 || grid[i][j][0] === 1)) {
 				cell.appendChild(document.createTextNode(showNumber(grid[i][j][0])));
 			}
+			else {
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
+
+			}
 
 			if (!isTerminalState(i, j, grid) && !isObstacle(i, j, grid)) {
 				var arrow = document.createElement("i");
@@ -399,7 +411,17 @@ function constructTable(grid) {
 			else if (allEqual(newGrid[i][j]) && (newGrid[i][j][0] === -1 || newGrid[i][j][0] === 1)) {
 				cell.appendChild(document.createTextNode(showNumber(newGrid[i][j][0])));
 			}
+			else {
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
+				cell.appendChild(document.createTextNode(' '));
+				cell.appendChild(document.createElement('br'));
 
+			}
 			// if(!isTerminalState(i, j, grid) && !isObstacle(i, j, grid)) {
 			// 	var arrow = document.createElement("i");
 			// 	var classname = "fa-solid fa-arrow-"+ DIRECTIONS.toString(getDirection(i, j, grid));
@@ -538,7 +560,7 @@ function initialize() {
 		clearInterval(time);
 	}
 	iterations = 0;
-	curSteps=0
+	curSteps = 0
 	document.getElementById("iteration-number").innerHTML = 0;
 	document.getElementById("stepsv").innerHTML = 0;
 	document.getElementById("converged-iterations").innerHTML = 0;
