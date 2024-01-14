@@ -8,4 +8,5 @@
 | SNo. | Name          | Email                           | Institute                                          | ID  |
 |------|---------------|---------------------------------|-----------------------------------------------------|-----|
 | 1    | Pranshul Chawla | pranshul.chawla@students.iiit.ac.in | International Institute of Information Technology Hyderabad | 1   |
+| 1    | Dhillu Thambi | dhillu.thambi@research.iiit.ac.in | International Institute of Information Technology Hyderabad | 1   |
 
