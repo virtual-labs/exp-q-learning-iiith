@@ -1,0 +1,70 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "What is Q-learning?",
+      "answers": {
+        "a": "A type of reinforcement learning algorithm",
+        "b": "A type of supervised learning algorithm",
+        "c": "A type of unsupervised learning algorithm",
+        "d": "A type of deep learning algorithm"
+      },
+      "explanations": {
+        "a": "Q-learning is a model-free reinforcement learning algorithm that interacts with the environment and learns policy from it."
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the purpose of the Q-value in Q-learning",
+      "answers": {
+        "a": "To measure the uncertainty of the agent's belief about the state of the environment",
+        "b": "To estimate the expected reward of taking a particular action in a particular state",
+        "c": "To represent the probability of observing a particular state given a set of actions"
+      },
+      "explanations": {
+        "b": "Q value for a particular state and action pair gives the expected reward on taking the action from that state"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the purpose of the epsilon-greedy policy in Q-learning?",
+      "answers": {
+        "a": "To converge the Q values quickly",
+        "b": "To ensure that the agent always takes the action with the highest Q-value",
+        "c": "To avoid getting stuck in local optima in the Q-value function",
+        "d": "To balance exploration and exploitation of the state-action space"
+      },
+      "explanations": {
+        "d": "Epsilon greedy approach allows exploration so as to learn a better policy"
+      },
+      "correctAnswer": "d",
+      "difficulty": "intermediate"
+    },
+    {
+      "question": "Is Q-Learning an off policy method?",
+      "answers": {
+        "a": "Yes",
+        "b": "No"
+      },
+      "explanations": {
+        "a": "Q-Learning is an off policy method as it updates the Q values based on max value instead of current policy"
+      },
+      "correctAnswer": "a",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "What is the ideal value of the discount factor in Q-learning to prioritize long-term rewards?",
+      "answers": {
+        "a": "A high value, such as 0.99",
+        "b": "A low value, such as 0.1"
+      },
+      "explanations": {
+        "a": "High value allows for future rewards to be considered as the effect of future rewards decreases exponentially"
+      },
+      "correctAnswer": "a",
+      "difficulty": "intermediate"
+    }
+  ]
+}

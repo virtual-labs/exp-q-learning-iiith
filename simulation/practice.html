@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Add CSS at the head of HTML file -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="./css/main.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+		integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/MotionPathPlugin.min.js"></script>
+
+	<title>
+		Q Learning
+	</title>
+</head>
+
+<body>
+	<!-- Your code goes here-->
+	<div class="main" id="main">
+
+		<div class="title" id="title">
+			<h1>Q Learning Practice</h1>
+		</div>
+		<div class="instructions">
+			<div class="columns is-centered">
+				<div class="column">
+					<div class="v-collapsible-instruction-container v-instruction-container">
+						<div class="v-collapsible is-size-5">Instructions</div>
+						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+							<ul style="list-style: disc;">
+								<li><b>Reset:</b> Resets the simulation to its original state.</li>
+								<li><b>Next Value:</b> Updates the Q value for the selected state-action pair.</li>
+								<li><b>Next Iteration:</b> Updates the Q values repeatedly until the episode reaches a terminal state or a pre-set number of steps.</li>
+								<li><b>Grid Customization:</b> Adjust the grid size, reward values, and discount factor using the dropdown menus provided.</li>
+								<li><b>Modifying State Rewards:</b> Double-click a cell to cycle its reward status: green (reward: +1), red (penalty: -1), and back to normal state.</li>
+								<li><b>Grid Animation:</b> The left grid shows the current cell being used to calculate the Q value, which corresponds to the highlighted state value in the right grid.</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- <div id="comments-demo" class="comment-box">
+			<b>Observations:</b><br>
+			<p id="ins"> </p>
+		  </div> -->
+
+
+		<div class="value-calculation" id="value-calculation">
+			<!-- <p>V<sub>6</sub>(7, 8) &xlarr;  0.8[0 + 0.9 * 1] + 0.1[0 + 0.9 * 0] + 0.1[0 + 0.9 * 0] = 0.72</p> -->
+			<p class="value-calculation-paragraph" id="value-calculation-paragraph">Calculation of Q values of (state,
+				action) pair appears here</p>
+
+		</div>
+		<div class="grid-title">
+			<h2 class="present-iteration-display" id="present-iteration-display">Previous Iteration</h2>
+			<h2 class="next-iteration-display" id="next-iteration-display">Present Iteration</h2>
+			<h2 class="observation-display" id="observation-display">Controls</h2>
+		</div>
+		<div class="parent-matrix">
+			<div class="matrix" id="matrix">
+
+			</div>
+			<div class="parameters observe">
+				<div class="iterations observe" id="iterations">
+
+					<label class="it">Iterations : &nbsp; </label>
+					<div class="iteration-number" id="iteration-number">
+						0
+					</div>
+				</div>
+				<div class="iterations observe" id="steps">
+
+					<label for="stepsv">Steps : &nbsp;</label>
+					<div class="iteration-number" id="stepsv">
+						0
+					</div>
+				</div>
+				<div class="discount observe">
+					<label for="discount">Discount Factor : &nbsp;</label>
+					<input type="number" id="discount" name="discount" min="0.1" max="1" step="0.1" value="0.9">
+					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
+				</div>
+				<div class="epsilon observe">
+					<label for="epsilon">Epsilon : &nbsp;</label>
+					<input type="number" id="epsilon" name="epsilon" min="0" max="1" step="0.1" value="0.3">
+					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
+				</div>
+				<div class="alpha observe">
+					<label for="alpha">Learning Rate : &nbsp;</label>
+					<input type="number" id="alpha" name="alpha" min="0.1" max="1" step="0.1" value="0.1">
+					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
+				</div>
+				<div class="reward observe">
+					<label for="reward">Reward : &nbsp;</label>
+					<input type="number" id="reward" name="reward" min="-1" max="-0.1" step="0.1" value="-0.1">
+					<!-- <input type="number" id="reward" name="reward" min="-1" max="1" step="0.1" value="0.0"> -->
+				</div>
+				<div class="grid observe">
+					<label for="grid-size">Grid Size : &nbsp;</label>
+					<select name="grid-sizes" id="grid-sizes" form="grid-size-form">
+						<option value="3">3x3</option>
+						<option value="4">4x4</option>
+					</select>
+					<!-- <p>3x3</p> -->
+				</div>
+			</div>
+		</div>
+		<!-- <div class="control-buttons" id="button-container">
+			<div class="button-container" id="button-container">
+
+				<button class="button-control" id="next-value">next value</button>
+				<button class="button-control" id="next-iteration">next Iteration</button>
+
+			</div>
+		</div> -->
+		<div class="modal" id="modal1">
+			<div class="modal-dialog">
+				<header class="modal-header">
+					<h2>Value Iteration</h2>
+					<button class="close-modal" aria-label="close modal" data-close>✕</button>
+				</header>
+				<section class="modal-content">The algorithm has converged after &nbsp;
+					<div class="converged-iterations" id="converged-iterations">
+						0
+					</div> &nbsp; iterations
+				</section>
+				<footer class="modal-footer">Press X to close modal</footer>
+			</div>
+		</div>
+		<div class="parameters" style="display: none">
+			<div class="iterations">
+				Iterations :
+				<div class="iteration-number" id="iteration-number">
+					1
+				</div>
+			</div>
+			<div class="discount">
+				<label for="discount">Discount Factor</label>
+				<!-- <p>0.9</p> -->
+				<input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9">
+			</div>
+			<div class="reward">
+				<label for="reward">Reward</label>
+				<input type="number" id="reward" name="reward" min="-1" max="1" step="0.1" value="-0.1">
+			</div>
+			<div class="grid">
+				<label for="grid-size">Grid Size</label>
+				<select name="grid-sizes" id="grid-sizes" form="grid-size-form">
+					<option value="3">3x3</option>
+					<option value="4">4x4</option>
+				</select>
+			</div>
+		</div>
+
+		<!-- <div style="margin-right: 10%; text-align:end">
+			<div>
+				<p id="ranger">
+					Min.Speed <input type="range" min="100" max="2500" id="interval" class="slider_input" value="1500"
+						onclick="change_interval();" onchange="change_interval();"> Max.Speed
+				</p>
+			</div>
+		</div> -->
+
+		<div class="play-pause" style="margin-top: 2%; margin-bottom: 2%;">
+			<div class="button-layout-practice">
+				<input type="button" value="Start" class="button-input" id="start" style="display: none;">
+				<input type="button" value="Pause" class="button-input" id="pause" style="display: none;">
+				<input type="button" value="Next Value" class="button-input" id="next-value">
+				<input type="button" value="Next Iteration" class="button-input" id="next-iteration">
+				<input type="button" value="Reset" class="button-input" id="reset">
+			</div>
+		</div>
+	</div>
+	<!-- Add JS at the bottom of HTML file -->
+	<script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+	<script type="module" src="./js/main.js"></script>
+<script src="../assets/js/iframeResize.js"></script></body>
+
+</html>

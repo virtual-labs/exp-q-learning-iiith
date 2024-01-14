@@ -1,0 +1,27 @@
+
+/home/runner/work/exp-q-learning-iiith/exp-q-learning-iiith/experiment/simulation/js/main.js
+    4:81   warning  'addObstacles' is defined but never used        no-unused-vars
+    4:95   warning  'getNeighbours' is defined but never used       no-unused-vars
+    4:139  warning  'DIRECTIONS' is defined but never used          no-unused-vars
+   50:29   warning  'e' is defined but never used                   no-unused-vars
+  100:7    warning  'reqCell' is already defined                    no-redeclare
+  115:33   warning  'e' is defined but never used                   no-unused-vars
+  116:6    warning  'cell' is assigned a value but never used       no-unused-vars
+  119:9    warning  Unexpected constant condition                   no-constant-condition
+  127:4    warning  'exploring' is assigned a value but never used  no-unused-vars
+  394:11   warning  'i' is already defined                          no-redeclare
+  395:7    warning  'row' is already defined                        no-redeclare
+  396:12   warning  'j' is already defined                          no-redeclare
+  397:8    warning  'cell' is already defined                       no-redeclare
+  464:15   warning  'discountFactor' is defined but never used      no-unused-vars
+  656:2    warning  Unnecessary semicolon                           no-extra-semi
+
+/home/runner/work/exp-q-learning-iiith/exp-q-learning-iiith/experiment/simulation/js/required-functions.js
+   19:42  warning  'R' is assigned a value but never used                 no-unused-vars
+   19:49  warning  'valueForTerminal' is assigned a value but never used  no-unused-vars
+  112:3   warning  'defaultCellValue' is assigned a value but never used  no-unused-vars
+  113:3   warning  'valueForTerminal' is assigned a value but never used  no-unused-vars
+
+✖ 19 problems (0 errors, 19 warnings)
+  0 errors and 1 warning potentially fixable with the `--fix` option.
+
