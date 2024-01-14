@@ -34,24 +34,18 @@
 						<div class="v-collapsible is-size-5">Instructions</div>
 						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
 							<ul style="list-style: disc;">
-								<li><b>Reset</b> - Resets the simulation</li>
-								<li><b>Next Value</b> - Updates the Q value of the state action pair</li>
-								<li><b>Next Iteration</b> - Updates the Q values until the episode converges at a
-									terminal state or a fixed number of steps are taken</li>
-								<li> Change the grid-size/reward/discount factor using dropdown given below </li>
-								<li> Double click will turn cell from green(reward: 1) to red(reward: -1) to normal
-									state </li>
-								<li> The animation on left grid represents the cell that are being to used to calculate
-									the state value that is highlighted in right grid </li>
+								<li><b>Reset:</b> Resets the simulation to its original state.</li>
+								<li><b>Next Value:</b> Updates the Q value for the selected state-action pair.</li>
+								<li><b>Next Iteration:</b> Updates the Q values repeatedly until the episode reaches a terminal state or a pre-set number of steps.</li>
+								<li><b>Grid Customization:</b> Adjust the grid size, reward values, and discount factor using the dropdown menus provided.</li>
+								<li><b>Modifying State Rewards:</b> Double-click a cell to cycle its reward status: green (reward: +1), red (penalty: -1), and back to normal state.</li>
+								<li><b>Grid Animation:</b> The left grid shows the current cell being used to calculate the Q value, which corresponds to the highlighted state value in the right grid.</li>
 							</ul>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-
-
 
 
 		<!-- <div id="comments-demo" class="comment-box">
