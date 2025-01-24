@@ -25,7 +25,7 @@
 	<div class="main" id="main">
 
 		<div class="title" id="title">
-			<h1>Q Learning Demo</h1>
+			<h1>Q Learning Practice</h1>
 		</div>
 		<div class="instructions">
 			<div class="columns is-centered">
@@ -34,13 +34,12 @@
 						<div class="v-collapsible is-size-5">Instructions</div>
 						<div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
 							<ul style="list-style: disc;">
-								<li><b>Start:</b> Initiates the simulation with the selected settings. The default simulation speed is set at 1x.</li>
-								<li><b>Speed Adjustment:</b> Alter the simulation speed using the slider control provided.</li>
-								<li><b>Reset:</b> Resets the simulation to its initial setup and parameters.</li>
-								<li><b>Grid Size Adjustment:</b> Change the grid size using the dropdown menu below.</li>
-								<li><b>Creating Obstacles:</b> Click once on any cell in the left grid to designate it as an obstacle.</li>
-								<li><b>Modifying Rewards:</b> Double-click a cell to cycle its state from green (reward: +1) to red (penalty: -1) and then back to its normal state.</li>
-								<li><b>Grid Animation:</b> The left grid visually demonstrates the cell being used to compute the state value, which is then highlighted in the right grid.</li>
+								<li><b>Reset:</b> Resets the simulation to its original state.</li>
+								<li><b>Next Value:</b> Updates the Q value for the selected state-action pair.</li>
+								<li><b>Next Iteration:</b> Updates the Q values repeatedly until the episode reaches a terminal state or a pre-set number of steps.</li>
+								<li><b>Grid Customization:</b> Adjust the grid size, reward values, and discount factor using the dropdown menus provided.</li>
+								<li><b>Modifying State Rewards:</b> Double-click a cell to cycle its reward status: green (reward: +1), red (penalty: -1), and back to normal state.</li>
+								<li><b>Grid Animation:</b> The left grid shows the current cell being used to calculate the Q value, which corresponds to the highlighted state value in the right grid.</li>
 							</ul>
 						</div>
 					</div>
@@ -64,18 +63,18 @@
 		<div class="grid-title">
 			<h2 class="present-iteration-display" id="present-iteration-display">Previous Iteration</h2>
 			<h2 class="next-iteration-display" id="next-iteration-display">Present Iteration</h2>
-			<h2 class="observation-display" id="observation-display">Observations</h2>
+			<h2 class="observation-display" id="observation-display">Controls</h2>
 		</div>
 		<div class="parent-matrix">
 			<div class="matrix" id="matrix">
 
 			</div>
-			<div class="parameters-display">
+			<div class="parameters observe">
 				<div class="iterations observe" id="iterations">
 
 					<label class="it">Iterations : &nbsp; </label>
 					<div class="iteration-number" id="iteration-number">
-						1
+						0
 					</div>
 				</div>
 				<div class="iterations observe" id="steps">
@@ -87,22 +86,22 @@
 				</div>
 				<div class="discount observe">
 					<label for="discount">Discount Factor : &nbsp;</label>
-					<p>0.9</p>
+					<input type="number" id="discount" name="discount" min="0.1" max="1" step="0.1" value="0.9">
 					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
 				</div>
 				<div class="epsilon observe">
 					<label for="epsilon">Epsilon : &nbsp;</label>
-					<p>0.3</p>
+					<input type="number" id="epsilon" name="epsilon" min="0" max="1" step="0.1" value="0.3">
 					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
 				</div>
 				<div class="alpha observe">
 					<label for="alpha">Learning Rate : &nbsp;</label>
-					<p>0.1</p>
+					<input type="number" id="alpha" name="alpha" min="0.1" max="1" step="0.1" value="0.1">
 					<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
 				</div>
 				<div class="reward observe">
 					<label for="reward">Reward : &nbsp;</label>
-					<p>-0.1</p>
+					<input type="number" id="reward" name="reward" min="-1" max="-0.1" step="0.1" value="-0.1">
 					<!-- <input type="number" id="reward" name="reward" min="-1" max="1" step="0.1" value="0.0"> -->
 				</div>
 				<div class="grid observe">
@@ -118,8 +117,8 @@
 		<!-- <div class="control-buttons" id="button-container">
 			<div class="button-container" id="button-container">
 
-				<button class="button" id="next-value">next value</button>
-				<button class="button" id="next-iteration">next Iteration</button>
+				<button class="button-control" id="next-value">next value</button>
+				<button class="button-control" id="next-iteration">next Iteration</button>
 
 			</div>
 		</div> -->
@@ -153,16 +152,6 @@
 				<label for="reward">Reward</label>
 				<input type="number" id="reward" name="reward" min="-1" max="1" step="0.1" value="-0.1">
 			</div>
-			<div class="epsilon observe">
-				<label for="epsilon">Epsilon : &nbsp;</label>
-				<input type="number" id="epsilon" name="epsilon" min="0" max="1" step="0.1" value="0.3">
-				<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
-			</div>
-			<div class="alpha observe">
-				<label for="alpha">Learning Rate : &nbsp;</label>
-				<input type="number" id="alpha" name="alpha" min="0.1" max="1" step="0.1" value="0.1">
-				<!-- <input type="number" id="discount" name="discount" min="0" max="1" step="0.1" value="0.9"> -->
-			</div>
 			<div class="grid">
 				<label for="grid-size">Grid Size</label>
 				<select name="grid-sizes" id="grid-sizes" form="grid-size-form">
@@ -172,7 +161,7 @@
 			</div>
 		</div>
 
-		<!-- <div style="margin-right: 10%; margin-top: 2%; text-align:end">
+		<!-- <div style="margin-right: 10%; text-align:end">
 			<div>
 				<p id="ranger">
 					Min.Speed <input type="range" min="100" max="2500" id="interval" class="slider_input" value="1500"
@@ -181,26 +170,15 @@
 			</div>
 		</div> -->
 
-
-
-
-		<div class="play-pause" style="padding-bottom: 5%; margin-top: 2%;">
-			<div class="button-layout">
+		<div class="play-pause" style="margin-top: 2%; margin-bottom: 2%;">
+			<div class="button-layout-practice">
+				<input type="button" value="Start" class="button-input" id="start" style="display: none;">
+				<input type="button" value="Pause" class="button-input" id="pause" style="display: none;">
+				<input type="button" value="Next Value" class="button-input" id="next-value">
+				<input type="button" value="Next Iteration" class="button-input" id="next-iteration">
 				<input type="button" value="Reset" class="button-input" id="reset">
-				<input type="button" value="Start" class="button-input" id="start">
-				<input type="button" value="Pause" class="button-input" id="pause">
-			</div>
-			<div style="margin-left: 5%;" class="slider-layout">
-				<p id="ranger">
-					Min.Speed
-					<input type="range" min="100" max="2500" id="interval" class="slider_input" value="1500"
-						onclick="change_interval();" onchange="change_interval();" />
-					Max.Speed
-				</p>
 			</div>
 		</div>
-
-
 	</div>
 	<!-- Add JS at the bottom of HTML file -->
 	<script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
